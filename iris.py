@@ -10,7 +10,6 @@ testingStop = 50
 ## Parameters for linear classifier ##
 alpha = 0.01
 N_iter = 5000 # Number of iterations
-D = 4 #Number of features
 
 
 def extractData(irisData):
@@ -25,7 +24,7 @@ def trainingData(irisClass, traingStart, traingStop):
 def testingData(irisClass, testingStart, testingStop):
     return irisClass[testingStart:testingStop]
 
-def linearClassifier(classes, N_iter, N_training, N_testing):
+def linearClassifier(classes, N_training, N_testing):
     features = [0,1,2,3]
 
     C = len(classes) # Number of classes
@@ -56,11 +55,11 @@ def linearClassifier(classes, N_iter, N_training, N_testing):
 
     for _ in range(N_iter):
         W_prev = W
-        grad_MSE = np.zeros((C,F))
+        grad_MSE = np.zeros((C,F+1))
         for k in range(N_training):
             for (xk, tk) in zip(training, target_k):
-                xk = np.append(xk[k], 1)
-                xk = xk.reshape(F+1, 1)
+                xk = np.append(xk[k], 1) 
+                xk = xk.reshape(F+1, 1) 
                 zk = W@xk
                 gk = sigmoid(zk)
                 temp = np.multiply(gk-tk, gk)
@@ -82,7 +81,7 @@ if __name__ == "__main__":
     irisData = datasets.load_iris()['data']
     class1, class2, class3 = extractData(irisData)
     classes = [class1, class2, class3]
-    W = linearClassifier(classes, 100, 30, 20)
+    W = linearClassifier(classes, 30, 20)
     print(W)
 
 

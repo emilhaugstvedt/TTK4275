@@ -72,11 +72,6 @@ def linearClassifier(classes, N_training, N_testing):
 def sigmoid(x):
     return 1/(1+np.exp(-x))
 
-
-
-
-
-
 if __name__ == "__main__":
     irisData = datasets.load_iris()['data']
     class1, class2, class3 = extractData(irisData)

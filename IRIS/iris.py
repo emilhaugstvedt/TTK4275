@@ -83,5 +83,3 @@ if __name__ == "__main__":
     classes = [class1, class2, class3]
     W = linearClassifier(classes, 30, 20)
     print(W)
-
-

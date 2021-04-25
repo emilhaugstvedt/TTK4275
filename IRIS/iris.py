@@ -36,10 +36,12 @@ def linearClassifier(classes, N_training, N_testing):
     W = np.concatenate((W, w_0), axis=1)
 
     # Extracting training data #
-    training1 = trainingData(classes[0], 0, N_training)
-    training2 = trainingData(classes[1], 0, N_training)
-    training3 = trainingData(classes[2], 0, N_training)
+    training1 = [trainingData(classes[0], 0, N_training), features]
+    training2 = [trainingData(classes[1], 0, N_training), features]
+    training3 = [trainingData(classes[2], 0, N_training), features]
     training = [training1, training2, training3]
+
+    print(training)
 
 
     # Extracting testing data #
@@ -59,6 +61,7 @@ def linearClassifier(classes, N_training, N_testing):
         for k in range(N_training):
             for (xk, tk) in zip(training, target_k):
                 xk = np.append(xk[k], 1) 
+                print(xk)
                 xk = xk.reshape(F+1, 1) 
                 zk = W@xk
                 gk = sigmoid(zk)
@@ -68,14 +71,8 @@ def linearClassifier(classes, N_training, N_testing):
         W = W_prev - alpha*grad_MSE
     return W
 
-
 def sigmoid(x):
     return 1/(1+np.exp(-x))
-
-
-
-
-
 
 if __name__ == "__main__":
     irisData = datasets.load_iris()['data']
